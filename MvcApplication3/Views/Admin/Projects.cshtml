@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Projects";
+}
+
+@using MvcApplication3.Models
+@model List<Project>
+
+@foreach (Project a in Model)
+{
+    @Html.Raw(a.Id+" - "+a.Name) if (a.Status == Statuses.Unconfirmed) { @Html.ActionLink("Confirm", "Confirm", new { id = a.Id })}
+}

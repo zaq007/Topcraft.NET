@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Add Project";
+}
+
+@using MvcApplication3.Models
+@model Project
+
+    @{Html.EnableClientValidation();}
+    @{Html.EnableUnobtrusiveJavaScript();}
+    @Html.ValidationSummary()
+@using(Html.BeginForm("Add")){
+    @Html.EditorForModel()
+    <input type="submit" value="Add Project"/>
+}

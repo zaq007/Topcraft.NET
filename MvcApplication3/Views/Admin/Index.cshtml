@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ActionLink("Accounts", "Accounts")      <br/>
+@Html.ActionLink("AddAccount", "AddAccount")  <br/>
+@Html.ActionLink("Projects", "Projects")      <br/>
+@Html.ActionLink("Unconfirmed Projects", "UnconfirmedProjects")      @Html.Action("CountOfUnconfirmedProjects") <br/>
+@Html.ActionLink("AddProject", "AddProject")  <br/>

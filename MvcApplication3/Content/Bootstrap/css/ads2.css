@@ -1,0 +1,12 @@
+.ads {
+position:fixed !important;
+top:50px !important;
+left:50px !important;
+width:140px !important;
+height:560px !important;
+border:5px solid #eee !important;
+border-radius:5px !important;
+}
+.ads:hover {
+border:5px solid #ddd !important;
+}

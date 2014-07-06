@@ -1,0 +1,33 @@
+﻿@using MvcApplication3.Models
+@model MvcApplication3.Models.Project
+
+    @{Project p = Model;}
+    <div class="row server-row-wrap">
+            <div class="span9 server-coloured-row">
+                    <div class="row server-row">
+							<div class="span6">							
+                                    <div class="span7 sban">
+										<a href="/Projects/Index/@p.Id"><img src="@p.BannerUrl" alt="@p.Name"></a>
+									</div>
+                                    <div class="span8">
+										<span class="server-name"><a href="@p.SiteUrl">@p.Name</a></span> &mdash;
+										<span class="server-shortdesc">@p.Description</span>
+                                    </div>
+                            </div>
+                            <div class="span3">
+								<div>
+									<div class="server-mark">
+										<div class="server-position"><span class="server-octothorpe">#</span>@(ViewBag.i+1)</div>
+										<div class="server-score">@p.Votes (+@p.TodayVotes)</div>
+									</div>
+								</div>
+                            	<div>
+									<div class="server-count-layer">
+											<div class="server-servercount"><a href="/" rel="popover" class="sc" data-original-title="Список серверов проекта @p.Name">@p.ServersCount</a></div>
+											<div class="server-score">серверов</div>
+									</div>
+								</div>
+                            </div>
+                    </div>
+            </div>
+    </div>	

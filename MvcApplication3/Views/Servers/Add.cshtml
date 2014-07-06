@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Add";
+}
+
+@using MvcApplication3.Models
+@model Server
+
+    @{Html.EnableClientValidation();}
+    @{Html.EnableUnobtrusiveJavaScript();}
+    @Html.ValidationSummary()
+@using(Html.BeginForm("Add")){
+    @Html.DropDownListFor(x => x.ProjectID, 
+        new SelectList((List<Project>)ViewBag.Projects, 
+        "Id", 
+        "Name"))
+    @Html.ListBoxFor(x => x.ModsId,
+        new SelectList((List<Mod>)ViewBag.Mods,
+        "Id",
+        "Name"))
+    @Html.EditorForModel()
+    <input type="submit" value="Add Server"/>
+}

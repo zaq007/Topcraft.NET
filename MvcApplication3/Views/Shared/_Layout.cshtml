@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/alertify")
+</head>
+<body>
+    <div class="background-gradient"></div>
+    <a id="top" href="#top"><i class="icon-white icon-chevron-up"></i></a>
+	<div class="container">
+	<div class="navbar navbar-inverse">
+	<div class="navbar-inner">
+		<a class="brand" href="/">TopCraft<sup>.NET</sup></a>
+	<ul class="nav">
+	<li>
+		<a href="/">Главная</a>
+	</li>
+	<li>
+		<a href="/ad">Реклама</a>
+	</li>
+	</ul>
+
+	<ul class="nav pull-right">
+	<li>
+		<a href="/Find" rel="tooltip" data-placement="bottom" title="Поиск minecraft сервера">Поиск сервера</a>
+	</li>
+        @Html.Action("Top", "Menu")
+	</ul>
+	</div>
+	</div>
+    <div class="row">
+        <div class="span9">
+            @RenderBody()
+        </div>
+            @Html.Action("Side", "Menu")
+    </div>
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

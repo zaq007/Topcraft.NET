@@ -1,0 +1,325 @@
+﻿@using MvcApplication3.Models
+@model List<Project>
+
+@{
+    ViewBag.Title = "My Projects";
+}
+
+<script src="@Scripts.Url("~/Scripts/MyProjects.js")" ></script>
+
+@for (int i = 0; i < Model.Count; i++ )
+{
+    <div class="row server-row-wrap">
+            <div class="span9 server-coloured-row">
+                     <div class="row server-row">
+							<div class="span6">							
+                                    <div class="span7 sban">
+										<a href="@Model[i].SiteUrl"><img src="@Model[i].BannerUrl" alt="@Model[i].Name"></a>
+									</div>
+                                    <div class="span8">
+										<span class="server-name"><a href="/servers/@Model[i].Id">@Model[i].Name</a></span> &mdash;
+										<span class="server-shortdesc">@Model[i].Description</span>
+                                    </div>
+                            </div>
+                            <div class="span3">
+								<div>
+									<div class="server-mark">
+										<div class="server-position"><span class="server-octothorpe">#</span>@(i+1)</div>
+										<div class="server-score">@Model[i].Votes (+@Model[i].TodayVotes)</div>
+									</div>
+								</div>
+                            	<div>
+									<div class="server-count-layer">
+											<div class="server-servercount"><a href="/servers/@Model[i].Id" rel="popover" class="sc" data-load="/ajax/servers/2" data-original-title="Список серверов проекта @Model[i].Name">@Model[i].ServersCount</a></div>
+											<div class="server-score">серверов</div>
+									</div>
+								</div>
+                            </div>
+							
+
+							<div class="span9">	
+         <ul class="nav nav-tabs" style="margin-bottom: 5px;">
+            <li><a href="@("#project"+i)" data-toggle="tab"><i class="icon-user"></i> Настройка проекта</a></li>
+            <li><a href="@("#servers"+i)" data-toggle="tab"><i class="icon-list-alt"></i> Сервера</a></li>
+            <li><a href="@("#transfer"+i)" data-toggle="tab"><i class="icon-share"></i> Перенос проекта</a></li>
+            <li><a href="@("#gift"+i)" data-toggle="tab"><i class="icon-gift"></i> Поощрения</a></li>
+            <li><a href="@("#hide"+i)" data-toggle="tab"><i class="icon-globe"></i> Скрыть</a></li>
+            <li><a href="@("#remove"+i)" data-toggle="tab"><i class="icon-trash"></i> Удалить</a></li>
+          </ul>
+          <div class="tab-content">
+            <div id="@("project"+i)" class="tab-pane">
+
+                <!--
+            <form>
+                <div class="editor-label">
+                    <label for="Name">Name</label>
+                </div>
+                <div class="editor-field">
+                    <input class="text-box single-line" data-val="true" data-val-required="Требуется поле Name." id="@("names"+i)" name="@("names"+i)" type="text" value="" /> 
+                    <span class="field-validation-valid" data-valmsg-for="@("names"+i)" data-valmsg-replace="true"></span>
+                </div>
+                <div class="editor-label">
+                    <label for="Description">Description</label>
+                </div>
+                <div class="editor-field">
+                    <input class="text-box single-line" data-val="true" data-val-required="Требуется поле Description." id="@("description"+i)" name="@("description"+i)" type="text" value="" /> 
+                    <span class="field-validation-valid" data-valmsg-for="@("description"+i)" data-valmsg-replace="true"></span>
+                </div>
+                <div class="editor-label"><label for="BannerUrl">BannerUrl</label></div>
+                <div class="editor-field"><input class="text-box single-line" data-val="true" data-val-required="Требуется поле BannerUrl." id="@("banner"+i)" name="@("banner"+i)" type="text" value="" /> <span class="field-validation-valid" data-valmsg-for="@("banner"+i)" data-valmsg-replace="true"></span></div>
+                <div class="editor-label"><label for="SiteUrl">SiteUrl</label></div>
+                <div class="editor-field"><input class="text-box single-line" data-val="true" data-val-required="Требуется поле SiteUrl." id="@("url"+i)" name="@("url"+i)" type="url" value="" /> <span class="field-validation-valid" data-valmsg-for="@("url"+i)" data-valmsg-replace="true"></span></div>
+           </form>-->
+
+				<form class="form-horizontal" enctype="multipart/form-data">
+					<div class="control-group">
+						<label class="control-label" for="names">Название проекта</label>
+						<div class="controls">
+							<input id="@("names"+i)" type="text" maxlength="28" name="names" size="30" placeholder="@Model[i].Name" class="input-xlarge">
+							<span class="help-block">Не более 28 символов</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="url">Адрес сайта</label>
+						<div class="controls">
+							<input id="@("url"+i)" type="text" name="url" size="30" placeholder="@Model[i].SiteUrl" class="input-xlarge">
+							<span class="help-block">Указывайте сайт, к которому имеете доступ по ФТП (для проверки)</span>
+						</div>
+					</div>
+				
+					<!---<div class="control-group">
+						<label class="control-label" for="MAX_FILE_SIZE">Баннер</label>
+						<div class="controls">
+							<input id=MAX_FILE_SIZE type="hidden" name="MAX_FILE_SIZE" value="300000" class="input-xlarge">
+							<input id="banner{=={$num" name="baner" type="file">
+							<span class="help-block">Принимаются только .png и .gif размером 468х60 и весящие не более 500кб</span>
+							<span class="help-block">Это поле можно оставить пустым</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="url">Промо ролик</label>
+						<div class="controls">
+							<input id="video_url{=={$num" type="text" name="url" size="30" placeholder="Model[i]." class="input-xlarge">
+							<span class="help-block">http://youtu.be/<strong>AYD6IyVSiPE</strong> - выделенная часть и есть ID</span>
+							<span class="help-block">Это поле можно оставить пустым</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="vk_url">Группа ВКонтакте</label>
+						<div class="controls">
+							<input id="vk_url{=={$num" type="text" name="vk_url" size="30" placeholder="Model[i].vk_url" class="input-xlarge">
+							<span class="help-block">Это поле можно оставить пустым</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="ts3">Адрес TeamSpeak</label>
+						<div class="controls">
+							<input id="teamspeak{=={$num" type="text" name="ts3" size="30" placeholder="Model[i].teamspeak" class="input-xlarge">
+							<span class="help-block">Это поле можно оставить пустым</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="rc">ID группы RaidCall</label>
+						<div class="controls">
+							<input id="raidcall{=={$num" type="text" name="rc" size="30" placeholder="Model[i].raidcall" class="input-xlarge">
+							<span class="help-block">Это поле можно оставить пустым</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="MAX_FILE_SIZE">Скриншоты</label>
+						<div class="controls">
+							<input id="screen1{=={$num" name="screen1" type="text" class="input-xlarge" placeholder="Model[i].screen1"><br><br>
+							<input id="screen2{=={$num" name="screen2" type="text" class="input-xlarge" placeholder="Model[i].screen2"><br><br>
+							<input id="screen3{=={$num" name="screen3" type="text" class="input-xlarge" placeholder="Model[i].screen3"><br><br>
+							<input id="screen4{=={$num" name="screen4" type="text" class="input-xlarge" placeholder="Model[i].screen4"><br><br>
+							<span class="help-block">Ссылки должны оканчиваться на .jpg или .png</span>
+							<span class="help-block">Это поле можно оставить пустым</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="description">Краткое описание проекта</label>
+						<div class="controls">
+							<textarea id="s_description{=={$num" type="text" maxlength="123" name="s_description" size="123" placeholder="@Model[i].Description" class="input-xlarge"></textarea>
+						</div>
+					</div>-->
+					<div class="control-group">
+						<label class="control-label" for="description">Полное описание проекта</label>
+						<div class="controls">
+							<textarea id="@("description"+i)" type="text" maxlength="2000" name="description" size="2000" placeholder="@Model[i].Description" class="input-xlarge" rows="6"></textarea>
+						</div>
+					</div>					
+				</form>
+
+				<div class="form-actions">
+					<a href="javascript:edit_p(@Model[i].Id, @i)" class="btn btn-primary">Сохранить</a>
+					<a href="/index.php" class="btn">Отменить</a>
+				</div>	
+            </div>
+            <div id="@("servers"+i)" class="tab-pane">
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Name</th>
+                          <th>IP</th>
+                        </tr>
+                     </thead>
+                    <tbody>
+                        @foreach (var server in @Model[i].Servers)
+                        {
+                        <tr>
+                          <td>@server.Id</td>
+                          <td>@server.Name</td>
+                          <td>@server.Ip</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+				<div class="form-actions">
+					<a href="/Servers/Edit/@Model[i].Id" class="btn btn-primary">Начать редактирование</a>
+					<a href="/index.php" class="btn">Отменить</a>
+				</div>	
+            </div>
+            <div id="@("gift"+i)" class="tab-pane">
+				<form class="form-horizontal">
+					<div class="control-group">
+						<label class="control-label" for="url">URL сайта</label>
+						<div class="controls">
+							<div class="input-append">
+							  <input id="@("api_url"+i)" placeholder="http://topcraft.ru/topcraft_gifts.php" type="text" name="url" size="30" value="@Model[i].RewardUrl" class="input-xlarge">
+							  <button class="btn" type="button" data-toggle="tooltip" title="Сохранить новый URL" onClick="newURL(@Model[i].Id, @i)"><i class="icon-ok"></i></button>
+							  <span class="help-block">Полный URL адрес до страницы со скриптом</span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="name">Секретный ключ</label>
+						<div class="controls">		
+							<div class="input-append">
+							  <input id="@("api_key"+i)" type="text" name="name" size="10" value="@Model[i].RewardHash" class="input-xlarge" readonly>
+							  <button class="btn" type="button" data-toggle="tooltip" title="Создать новый ключ" onClick="newKey(@Model[i].Id, @i)"><i class="icon-refresh"></i></button>
+							</div>							
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="test">Пробный запрос</label>
+						<div class="controls">		
+							<div class="input-append">
+							  <input id="@("voter"+i)" type="text" name="test" size="10" placeholder="UserNick"  class="input-xlarge">
+							  <button class="btn" type="button" data-toggle="tooltip" title="Проверить" onClick="vote(@Model[i].Id, @i)"><i class="icon-cog"></i></button>
+							  <span class="help-block">Введите никнейм для выдачи тестового поощрения.</span>
+							</div>							
+						</div>
+					</div>
+				</form>
+				
+			<div style="padding-left: 20px; padding-right: 20px;">
+				<legend>Инструкция по установке скрипта</legend>
+							
+				<dl>
+				  <dt>1. Скачивание скрипта</dt>
+				  <dd>
+				  <button class="btn btn-large btn-block btn-primary" type="button" onClick="location.href='http://topcraft.ru/downloads/topcraft_gift.zip'">Скачать скрипт поощрений</button></dd>
+				</dl>
+				<dl>
+				  <dt>2. Настройка скрипта</dt>
+				  <dd>Первым делом Вам необходимо отредактировать поля для подключения к базе Данных
+				  <pre> $conf['host'] = 'localhost'; //Хост
+ $conf['user'] = 'root'; //Пользователь базы
+ $conf['pass'] = '123456'; //Пароль к базе
+ $conf['name'] = 'minecraft'; //Название базы</pre>
+ </dd>
+				</dl>
+				<dl>
+				  <dt>3. Настройка секретного ключа</dt>
+				  <dd>
+				  Секретный ключ для каждого проекта свой, узнать его можно в вверху страницы, если будет необходимость, его можно обновить на новый при помощи нажатия на кнопочку <i class="icon-refresh"></i> возле поля.<br />
+				  Затем заносим Ваш ключ в специальное поле.
+				  <pre> $conf['secretkey'] = 'a1982f648b301afc7173479ea1bc6f99';//Ваш секретный ключ</pre>
+				  </dd>
+				</dl>
+				<dl>
+				  <dt>4. Настройка поощрения</dt>
+				  <dd>
+				  Настраиваем таблицу в которой лежит плагин iConomy, затем указываем сумму за поощрение.
+				  <pre>$conf['table'] = 'iConomy'; //Таблица iConomy
+ $conf['iconomy'] = 200;//Количество денег, которое получит игрок за голосование.</pre>
+				  </dd>
+				</dl>
+				<dl>
+				  <dt>5. Загрузка скрипта на хостинг</dt>
+				  <dd>
+				  После настройки всех параметров, Вам необходимо загрузить полученный скрипт на свой сайт.
+				  </dd>
+				</dl>
+				<dl>
+				  <dt>6. Синхронизация с сайтом</dt>
+				  <dd>
+				  После загрузки скрипта на сайт, Вам необходимо указать полный адрес к скрипту на странице настроек (первое поле, чуть выше секретного ключа). Указывая это поле, вы показываете роботу, куда надо отправлять информацию о ваших голосах.<br />
+				  Пример правильного URL: http://topcraft.ru/topcraft_gifts.php
+				  </dd>
+				</dl>
+				<dl>
+				  <dt>7. Установка окончена!</dt>
+				  <dd>
+				  Если вы выполнили всё по инструкции, а также указали верные данные, то скрипт будет успешно работать.<br />
+				  Спасибо за то, что Вы с нами.
+				  </dd>
+				</dl>
+			</div>
+			
+            </div>
+            <div id="@("transfer"+i)" class="tab-pane">
+				<div class="text1" style="padding-left: 20px; padding-right: 20px;"><br />
+					При помощи данной функции, вы можете передать свой проект другому участнику топа без потери статистики, голосов, настроек и остальных функций.
+					Просто напишите логин человека, которому передаёте проект, а затем подтвердите свои действия через почту.<br /><br />
+				</div>
+				<form class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label" for="name">Логин</label>
+							<div class="controls">
+								<input id="@("new_owner"+i)" type="text" name="name" size="30" placeholder="TopCraftUser" class="input-xlarge">
+								<span class="help-block">Введите Логин человека, которому передаётся проект</span>
+							</div>
+						</div>
+				</form>
+			
+				<div class="form-actions">
+					<a class="btn btn-primary" onClick="transfer(@Model[i].Id, @i)">Перенести проект</a>
+					<a href="/index.php" class="btn">Отмена</a>
+				</div>	
+            </div>
+            <div id="@("hide"+i)" class="tab-pane">
+				<div class="text1" style="padding-left: 20px; padding-right: 20px;"><br />
+					Функция "Скрыть проект" создана специально для проектов, которые временно приостановили свою работу, закрылись на тех. работы, обновление, либо просто не проплатили хост. <br />
+					Выполнив "скрытие", вы просто временно приостановите участие проекта в рейтинге, ведение статистики и возможность голосования.<br />
+					Вернуть проект в нормальный вид, можно на этой же странице.<br /><br />
+					
+					Действие требует подтверждения по e-mail.
+					<br /><br />
+				</div>
+				<div class="form-actions">
+					<a href="javascript:hide(@Model[i].Id, @i)" class="btn btn-primary">Скрыть проект</a>
+					<a href="/index.php" class="btn">Отмена</a>
+				</div>	
+           </div>
+            <div id="@("remove"+i)" class="tab-pane">
+				<div class="text1" style="padding-left: 20px; padding-right: 20px;"><br />
+					Функция "Удалить проект" полностью удалит Ваш проект с топа.<br />
+					Вы потеряете всю набранную статистику, голоса, логи, настройки и многое другое.<br />
+					<br /><br />
+					
+					Действие требует подтверждения по e-mail.
+					<br /><br />
+				</div>
+				<div class="form-actions">
+					<a href="javascript:del(@Model[i].Id, @i)" class="btn btn-primary">Удалить проект</a>
+					<a href="/index.php" class="btn">Отмена</a>
+				</div>	
+           </div>
+		</div>
+							</div>
+                    </div>
+			</div>
+    </div>
+}

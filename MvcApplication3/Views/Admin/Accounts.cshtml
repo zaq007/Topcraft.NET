@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Accounts"; 
+}
+@using MvcApplication3.Models
+@model List<Account>
+
+@foreach (Account a in Model)
+{
+    @Html.AttributeEncode(a.Id.ToString() + " " + a.Email + " " + a.Wallet.ToString() + " " + a.RoleName.ToString()+" ")
+    @Html.ActionLink("Edit", "EditAccount/"+a.Id.ToString())
+    <br/>
+}

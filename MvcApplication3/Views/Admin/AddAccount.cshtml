@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "AddAccount";
+}
+
+@using MvcApplication3.Models
+@model Account
+
+@using(Html.BeginForm("AddAccount", "Admin")){
+    var a = typeof(Account).GetProperties();
+    for (int i = 1; i < 4;i++ )
+    {
+        @Html.Label(a[i].Name);
+        @Html.Editor(a[i].Name);
+        @Html.ValidationMessage(a[i].Name);
+    }
+    @Html.LabelFor(x=>x.RoleName)
+    @Html.DropDownListFor(x => x.RoleName, new SelectList(Enum.GetNames(typeof(Role))))
+    @Html.ValidationMessageFor(x=>x.RoleName)
+    <br/>
+    <input type="submit" value="Add Account"/>
+}
