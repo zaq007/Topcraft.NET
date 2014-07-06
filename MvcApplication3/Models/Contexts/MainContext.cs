@@ -18,6 +18,8 @@ namespace MvcApplication3.Models
         public DbSet<Project> Projects { get; set; }
         public DbSet<Mod> Mods { get; set; }
         public DbSet<Server> Servers { get; set; }
+        public DbSet<Vote> Votes { get; set; }
+        public DbSet<Voter> Voters { get; set; }
         
     }
 }

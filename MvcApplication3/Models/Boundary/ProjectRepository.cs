@@ -55,7 +55,7 @@ namespace MvcApplication3.Models.Boundary
         public string Update(int id, string name, string description, string url, string banner, Account CurrentUser)
         {
             Project p = GetById(id);
-            if (CurrentUser.Id != p.Owner.Id)
+            if (CurrentUser.Id != p.Owner.Id && CurrentUser.RoleName != Role.Admin)
                 return "Access Denied!";
             if (name != "")
                 p.Name = name;
@@ -101,8 +101,9 @@ namespace MvcApplication3.Models.Boundary
 
         public string Hide(int id, Account CurrentUser)
         {
+            
             Project p = GetById(id);
-            if (CurrentUser.Id != p.Owner.Id)
+            if (CurrentUser.Id != p.Owner.Id && CurrentUser.RoleName != Role.Admin)
                 return "Access Denied!";
             p.Status = Statuses.Hidden;
             DB.SaveChanges();
@@ -112,7 +113,7 @@ namespace MvcApplication3.Models.Boundary
         public string Transfer(int id, string new_owner, Account CurrentUser)
         {
             Project p = GetById(id);
-            if (CurrentUser.Id != p.Owner.Id)
+            if (CurrentUser.Id != p.Owner.Id && CurrentUser.RoleName != Role.Admin)
                 return "Access Denied!";
             Account New = AR.GetUser(new_owner);
             if (New.Id != CurrentUser.Id)
@@ -126,7 +127,7 @@ namespace MvcApplication3.Models.Boundary
         public string Delete(int id, Account CurrentUser)
         {
             Project p = GetById(id);
-            if (CurrentUser.Id != p.Owner.Id)
+            if (CurrentUser.Id != p.Owner.Id && CurrentUser.RoleName != Role.Admin)
                 return "Access Denied!";
             DB.Projects.Remove(DB.Projects.Where(x => x.Id == id).ToArray()[0]);
             DB.SaveChanges();
@@ -136,7 +137,7 @@ namespace MvcApplication3.Models.Boundary
         public string NewUrl(int id, string url, Account CurrentUser)
         {
             Project p = GetById(id);
-            if (CurrentUser.Id != p.Owner.Id)
+            if (CurrentUser.Id != p.Owner.Id && CurrentUser.RoleName != Role.Admin)
                 return "Access Denied!";
             try
             {
@@ -169,7 +170,7 @@ namespace MvcApplication3.Models.Boundary
         public string NewApiHash(int id, Account CurrentUser)
         {
             Project p = GetById(id);
-            if (CurrentUser.Id != p.Owner.Id)
+            if (CurrentUser.Id != p.Owner.Id && CurrentUser.RoleName != Role.Admin)
                 return "Access Denied!";
             p.RewardHash = GenerateHash(DateTime.Now.ToString());
             DB.SaveChanges();

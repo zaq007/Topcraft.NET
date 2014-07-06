@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@if(ViewBag.Project != null && ViewBag.Nickname != null)
+{
+<legend>Голосование за проект @ViewBag.Project.Name</legend>
+	<center>
+	<div id="vk_auth"></div>
+		<script type="text/javascript">
+		VK.Widgets.Auth("vk_auth", {width: "240px", authUrl: '/Votes/Vote/?id=@ViewBag.Project.Id&nickname=@ViewBag.Nickname'});
+		</script>
+	Для голосования, Вам необходимо авторизироваться через ВКонтакте.<br />
+	Можно голосовать каждые 24 часа.
+	</center>
+} else
+{
+    <legend>Ошибка.</legend>
+}

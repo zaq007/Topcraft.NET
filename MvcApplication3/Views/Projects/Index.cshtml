@@ -5,3 +5,9 @@
 @model Project
 
 @Html.DisplayForModel()
+
+<form action="/Votes/" method="get">
+    @Html.HiddenFor(x => x.Id)
+    @Html.Editor("Nickname")
+    <button type="submit" class="btn btn-primary">Голосовать</button>
+</form>

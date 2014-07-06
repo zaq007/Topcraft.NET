@@ -40,20 +40,23 @@ namespace MvcApplication3.Models
 
         public virtual ICollection<Server> Servers { get; set; }
 
+        [ScaffoldColumn(false)]
+        public virtual int Votes { get { return VotesList.Count; } }
 
         [ScaffoldColumn(false)]
-        public int Votes { get; set; }
-
-        public int ServersCount { get { return Servers.Count; } }
+        public virtual int ServersCount { get { return Servers.Count; } }
 
         [ScaffoldColumn(false)]
-        public int TodayVotes { get; set; }
+        public virtual int TodayVotes { get { return VotesList.Where(x => DateTime.Now - x.Date < new TimeSpan(24, 0, 0)).ToList().Count; } }
 
         [ScaffoldColumn(false)]
         public Statuses Status { get; set; }
 
+        public virtual ICollection<Vote> VotesList { get; set; }
+
         public Project()
         {
+            VotesList = new List<Vote>();
             Servers = new List<Server>();
         }
     }

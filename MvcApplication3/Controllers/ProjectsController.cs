@@ -59,8 +59,6 @@ namespace MvcApplication3.Controllers
             {
                 p.OwnerID = CurrentUser.Id;
                 p.Status = Statuses.Unconfirmed;
-                p.TodayVotes = 0;
-                p.Votes = 0;
                 DB.Add(p);
                 return View();
             }

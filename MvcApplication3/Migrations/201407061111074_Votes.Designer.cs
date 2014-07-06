@@ -7,13 +7,13 @@ namespace MvcApplication3.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class Servers : IMigrationMetadata
+    public sealed partial class Votes : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Servers));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Votes));
         
         string IMigrationMetadata.Id
         {
-            get { return "201407050828013_Servers"; }
+            get { return "201407061111074_Votes"; }
         }
         
         string IMigrationMetadata.Source

@@ -155,6 +155,7 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServersController.cs" />
+    <Compile Include="Controllers\VotesController.cs" />
     <Compile Include="DataClasses1.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -170,29 +171,10 @@
     <Compile Include="Global\Auth\IUserProvider.cs" />
     <Compile Include="Global\Auth\UserIndentity.cs" />
     <Compile Include="Global\Auth\UserProvider.cs" />
-    <Compile Include="Migrations\201405031204449_InitialCreate.cs" />
-    <Compile Include="Migrations\201405031204449_InitialCreate.Designer.cs">
-      <DependentUpon>201405031204449_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201405061622100_User.cs" />
-    <Compile Include="Migrations\201405061622100_User.Designer.cs">
-      <DependentUpon>201405061622100_User.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201407031839340_ServersCount.cs" />
-    <Compile Include="Migrations\201407031839340_ServersCount.Designer.cs">
-      <DependentUpon>201407031839340_ServersCount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201407041319558_qwe.cs" />
-    <Compile Include="Migrations\201407041319558_qwe.Designer.cs">
-      <DependentUpon>201407041319558_qwe.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201407041729474_Owner.cs" />
-    <Compile Include="Migrations\201407041729474_Owner.Designer.cs">
-      <DependentUpon>201407041729474_Owner.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201407050828013_Servers.cs" />
-    <Compile Include="Migrations\201407050828013_Servers.Designer.cs">
-      <DependentUpon>201407050828013_Servers.cs</DependentUpon>
+    <Compile Include="Global\VK.cs" />
+    <Compile Include="Migrations\201407061111074_Votes.cs" />
+    <Compile Include="Migrations\201407061111074_Votes.Designer.cs">
+      <DependentUpon>201407061111074_Votes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
@@ -200,6 +182,7 @@
     <Compile Include="Models\Boundary\ModRepository.cs" />
     <Compile Include="Models\Boundary\ProjectRepository.cs" />
     <Compile Include="Models\Boundary\ServerRepository.cs" />
+    <Compile Include="Models\Boundary\VotesRepository.cs" />
     <Compile Include="Models\Interfaces\IRepository.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Mod.cs" />
@@ -207,6 +190,8 @@
     <Compile Include="Models\RegisterAccount.cs" />
     <Compile Include="Models\Server.cs" />
     <Compile Include="Models\Contexts\MainContext.cs" />
+    <Compile Include="Models\Vote.cs" />
+    <Compile Include="Models\Voter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -369,6 +354,7 @@
     <Content Include="Views\Projects\Project.cshtml" />
     <Content Include="Views\Projects\My.cshtml" />
     <Content Include="Views\Servers\Add.cshtml" />
+    <Content Include="Views\Votes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -382,23 +368,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201405031204449_InitialCreate.resx">
-      <DependentUpon>201405031204449_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405061622100_User.resx">
-      <DependentUpon>201405061622100_User.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201407031839340_ServersCount.resx">
-      <DependentUpon>201407031839340_ServersCount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201407041319558_qwe.resx">
-      <DependentUpon>201407041319558_qwe.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201407041729474_Owner.resx">
-      <DependentUpon>201407041729474_Owner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201407050828013_Servers.resx">
-      <DependentUpon>201407050828013_Servers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407061111074_Votes.resx">
+      <DependentUpon>201407061111074_Votes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

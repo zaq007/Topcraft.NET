@@ -5,16 +5,14 @@ namespace MvcApplication3.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MvcApplication3.Models.ProjectContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MvcApplication3.Models.MainContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "MvcApplication3.Models.ProjectContext";
+            AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(MvcApplication3.Models.ProjectContext context)
+        protected override void Seed(MvcApplication3.Models.MainContext context)
         {
             //  This method will be called after migrating to the latest version.
 
