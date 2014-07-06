@@ -51,6 +51,7 @@ namespace MvcApplication3.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         public ActionResult Logout()
         {
             Auth.LogOut();

@@ -6,9 +6,9 @@ using System.Web;
 
 namespace MvcApplication3.Models
 {
-    public class ServerContext : DbContext
+    public class MainContext : DbContext
     {
-        public ServerContext()
+        public MainContext()
             : base("TestDB")
         {
 

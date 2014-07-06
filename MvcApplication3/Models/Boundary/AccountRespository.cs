@@ -8,13 +8,13 @@ namespace MvcApplication3.Models.Boundary
 {
     public class AccountRespository : IRepository
     {
-        AccountContext DB = new AccountContext();
+        MainContext DB = new MainContext();
 
         public IQueryable<Account> Accounts
         {
             get
             {
-                return DB.Entries;
+                return DB.Accouts;
             }
         }
 
@@ -22,7 +22,7 @@ namespace MvcApplication3.Models.Boundary
         {
             try
             {
-                DB.Entries.Add(instance);
+                DB.Accouts.Add(instance);
                 DB.SaveChanges();
                 return true;
             }
@@ -34,24 +34,24 @@ namespace MvcApplication3.Models.Boundary
 
         public Account Login(string email, string pass)
         {
-            return DB.Entries.FirstOrDefault(p => string.Compare(p.Email, email, true) == 0 && string.Compare(p.Password, pass, false) == 0);
+            return DB.Accouts.FirstOrDefault(p => string.Compare(p.Email, email, true) == 0 && string.Compare(p.Password, pass, false) == 0);
         }
 
 
         public Account GetUser(string email)
         {
-            return DB.Entries.FirstOrDefault(p => string.Compare(p.Email, email, true) == 0);
+            return DB.Accouts.FirstOrDefault(p => string.Compare(p.Email, email, true) == 0);
         }
 
         public Account GetById(int id)
         {
-            return DB.Entries.FirstOrDefault(p => p.Id == id);
+            return DB.Accouts.FirstOrDefault(p => p.Id == id);
         }
 
         internal void Update(Account account)
         {
             var arr = typeof(Account).GetProperties();
-            var acc = DB.Entries.Where(x => x.Id == account.Id).ToArray()[0];
+            var acc = DB.Accouts.Where(x => x.Id == account.Id).ToArray()[0];
             for (int i = 1; i < arr.Count(); i++)
             {
                 arr[i].SetValue(acc, arr[i].GetValue(account));

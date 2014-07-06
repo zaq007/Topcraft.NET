@@ -36,7 +36,7 @@ namespace MvcApplication3.Controllers
             return View(DB.GetById((int)Id));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin,Member")]
         [HttpGet]
         public ActionResult Add()
         {
@@ -51,7 +51,7 @@ namespace MvcApplication3.Controllers
             return View(DB.GetUserProjects(CurrentUser));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin,Member")]
         [HttpPost]
         public ActionResult Add(Project p)
         {
@@ -67,42 +67,42 @@ namespace MvcApplication3.Controllers
             return View(p);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin,Member")]
         [HttpPost]
         public string Edit(int id, string name, string description, string url, string banner)
         {
             return DB.Update(id, name, description, url, banner, CurrentUser);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin,Member")]
         [HttpPost]
         public string Hide(int id)
         {
             return DB.Hide(id, CurrentUser);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin,Member")]
         [HttpPost]
         public string Transfer(int id, string new_owner)
         {
             return DB.Transfer(id, new_owner, CurrentUser);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin,Member")]
         [HttpPost]
         public string Delete(int id)
         {
             return DB.Delete(id, CurrentUser);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin,Member")]
         [HttpPost]
         public string NewUrl(int id, string url)
         {
             return DB.NewUrl(id, url, CurrentUser);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin,Member")]
         [HttpPost]
         public string NewApiHash(int id)
         {

@@ -7,7 +7,7 @@ namespace MvcApplication3.Models.Boundary
 {
     public class ServerRepository
     {
-        ServerContext DB = new ServerContext();
+        MainContext DB = new MainContext();
 
         public bool Add(Server s)
         {

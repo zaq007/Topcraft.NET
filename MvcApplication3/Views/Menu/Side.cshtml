@@ -21,10 +21,13 @@
                      {
                          <li><a href="/Admin"><i class="icon-plus-sign"></i> Админцентр</a></li>
                      }
-					<li><a href="/Projects/Add"><i class="icon-plus-sign"></i> Создать проект</a></li>
-					<li><a href="/Servers/Add"><i class="icon-plus"></i> Добавить сервер</a></li>
-					<li><a href="/Projects/My"><i class="icon-pencil"></i> Настройки проектов</a></li>
-					<li><a href="/Service"><i class="icon-shopping-cart" title="Покупка рекламы, V.I.P. статусов, участие в пирамиде"></i> Заказ услуг</a></li>
+					@if(ViewBag.CurrentUser.RoleName != MvcApplication3.Models.Role.Guest)
+                     {
+                         <li><a href="/Projects/Add"><i class="icon-plus-sign"></i> Создать проект</a></li>
+					     <li><a href="/Servers/Add"><i class="icon-plus"></i> Добавить сервер</a></li>
+					     <li><a href="/Projects/My"><i class="icon-pencil"></i> Настройки проектов</a></li>
+					     <li><a href="/Service"><i class="icon-shopping-cart" title="Покупка рекламы, V.I.P. статусов, участие в пирамиде"></i> Заказ услуг</a></li>
+                     }
 					<li><a href="/Menu/Logout"><i class="icon-off"></i> Выход</a></li>
 				</ul>
         }

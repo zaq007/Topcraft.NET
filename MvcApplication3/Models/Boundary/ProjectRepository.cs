@@ -10,15 +10,14 @@ namespace MvcApplication3.Models.Boundary
 {
     public class ProjectRepository
     {
-        ProjectContext DB = new ProjectContext();
-
+        MainContext DB = new MainContext();
         AccountRespository AR = new AccountRespository();
 
         public IQueryable<Project> Projects
         {
             get
             {
-                return DB.Entries;
+                return DB.Projects;
             }
         }
 
@@ -26,7 +25,7 @@ namespace MvcApplication3.Models.Boundary
         {
             try
             {
-                DB.Entries.Add(p);
+                DB.Projects.Add(p);
                 DB.SaveChanges();
                 return true;
             }
@@ -39,18 +38,18 @@ namespace MvcApplication3.Models.Boundary
 
         internal void Confirm(int id)
         {
-            DB.Entries.Where(x => x.Id == id).ToArray()[0].Status = Statuses.Ordinary;
+            DB.Projects.Where(x => x.Id == id).ToArray()[0].Status = Statuses.Ordinary;
             DB.SaveChanges();
         }
 
         public List<Project> GetUserProjects(Account curr)
         {
-            return DB.Entries.Where(x => x.Owner.Id == curr.Id).ToList();
+            return DB.Projects.Where(x => x.Owner.Id == curr.Id).ToList();
         }
 
         internal List<Project> GetProjectsForMainPage()
         {
-            return DB.Entries.Where(x => x.Status != Statuses.Unconfirmed && x.Status != Statuses.Hidden).ToList();
+            return DB.Projects.Where(x => x.Status != Statuses.Unconfirmed && x.Status != Statuses.Hidden).ToList();
         }
 
         public string Update(int id, string name, string description, string url, string banner, Account CurrentUser)
@@ -92,7 +91,7 @@ namespace MvcApplication3.Models.Boundary
         {
             try
             {
-                return DB.Entries.Where(x => x.Id == Id).ToArray()[0];
+                return DB.Projects.Where(x => x.Id == Id).ToArray()[0];
             }
             catch
             {
@@ -129,7 +128,7 @@ namespace MvcApplication3.Models.Boundary
             Project p = GetById(id);
             if (CurrentUser.Id != p.Owner.Id)
                 return "Access Denied!";
-            DB.Entries.Remove(DB.Entries.Where(x => x.Id == id).ToArray()[0]);
+            DB.Projects.Remove(DB.Projects.Where(x => x.Id == id).ToArray()[0]);
             DB.SaveChanges();
             return "Deleted";
         }
