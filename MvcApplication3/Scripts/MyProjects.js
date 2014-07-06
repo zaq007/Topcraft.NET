@@ -34,7 +34,7 @@ function hide(cid, num) {
 function vote(cid, num) {
     alertify.log("Пожалуйста, подождите");
     clogin = $("#voter" + num).val();
-    $.post("/Votes/Test", { login: clogin, id: cid }, function (data) {
+    $.post("/Votes/Test", { nickname: clogin, id: cid }, function (data) {
         alertify.success(data);
         var curPos = $(document).scrollTop();
         var scrollTime = curPos / 1.73;
