@@ -149,12 +149,14 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServersController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\VotesController.cs" />
     <Compile Include="DataClasses1.designer.cs">
       <AutoGen>True</AutoGen>
@@ -171,14 +173,37 @@
     <Compile Include="Global\Auth\IUserProvider.cs" />
     <Compile Include="Global\Auth\UserIndentity.cs" />
     <Compile Include="Global\Auth\UserProvider.cs" />
+    <Compile Include="Global\Interkassa.cs" />
     <Compile Include="Global\VK.cs" />
     <Compile Include="Migrations\201407061111074_Votes.cs" />
     <Compile Include="Migrations\201407061111074_Votes.Designer.cs">
       <DependentUpon>201407061111074_Votes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407090746402_Ad.cs" />
+    <Compile Include="Migrations\201407090746402_Ad.Designer.cs">
+      <DependentUpon>201407090746402_Ad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407090805314_Alt.cs" />
+    <Compile Include="Migrations\201407090805314_Alt.Designer.cs">
+      <DependentUpon>201407090805314_Alt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407100624208_WAT.cs" />
+    <Compile Include="Migrations\201407100624208_WAT.Designer.cs">
+      <DependentUpon>201407100624208_WAT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407110652218_Prices.cs" />
+    <Compile Include="Migrations\201407110652218_Prices.Designer.cs">
+      <DependentUpon>201407110652218_Prices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407110816596_DateTime.cs" />
+    <Compile Include="Migrations\201407110816596_DateTime.Designer.cs">
+      <DependentUpon>201407110816596_DateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\Boundary\AccountRespository.cs" />
+    <Compile Include="Models\Boundary\AdRepository.cs" />
     <Compile Include="Models\Boundary\ModRepository.cs" />
     <Compile Include="Models\Boundary\ProjectRepository.cs" />
     <Compile Include="Models\Boundary\ServerRepository.cs" />
@@ -186,6 +211,7 @@
     <Compile Include="Models\Interfaces\IRepository.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Mod.cs" />
+    <Compile Include="Models\Price.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\RegisterAccount.cs" />
     <Compile Include="Models\Server.cs" />
@@ -327,6 +353,7 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\MyProjects.js" />
+    <Content Include="Scripts\Service.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -355,6 +382,7 @@
     <Content Include="Views\Projects\My.cshtml" />
     <Content Include="Views\Servers\Add.cshtml" />
     <Content Include="Views\Votes\Index.cshtml" />
+    <Content Include="Views\Service\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -370,6 +398,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201407061111074_Votes.resx">
       <DependentUpon>201407061111074_Votes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407090746402_Ad.resx">
+      <DependentUpon>201407090746402_Ad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407090805314_Alt.resx">
+      <DependentUpon>201407090805314_Alt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407100624208_WAT.resx">
+      <DependentUpon>201407100624208_WAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407110652218_Prices.resx">
+      <DependentUpon>201407110652218_Prices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407110816596_DateTime.resx">
+      <DependentUpon>201407110816596_DateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -388,7 +431,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>6957</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:34908/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

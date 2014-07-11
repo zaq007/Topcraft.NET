@@ -20,6 +20,8 @@ namespace MvcApplication3.Models
         public DbSet<Server> Servers { get; set; }
         public DbSet<Vote> Votes { get; set; }
         public DbSet<Voter> Voters { get; set; }
+        public DbSet<Ad> Ads { get; set; }
+        public DbSet<Price> Prices { get; set; }
         
     }
 }

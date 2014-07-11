@@ -3,6 +3,7 @@
 }
 @using MvcApplication3.Models
 @model List<Project>
+
 @for (int i =0 ; i<Model.Count; i++)
 {
     @Html.Action("GetView", "Projects", new { p = Model[i], i = i })

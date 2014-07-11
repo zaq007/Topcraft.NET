@@ -1,0 +1,339 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script src="@Scripts.Url("~/Scripts/Service.js")" >
+    
+function calculate() {
+    var cimage = $("#image").val();
+    var curl = $("#url").val();
+    var chelp = $("#help").val();
+    var cplace = document.getElementById("place").selectedIndex;
+    var ctype = document.getElementById("type").selectedIndex;
+    var coption = $("#option").val();
+    if (cplace == 0) {
+        if (ctype == 0) {
+            var sum = Math.ceil(@(((List<MvcApplication3.Models.Price>)(ViewBag.Prices)).Find(x => (int)x.Position == 0 && (int)x.Goal == 0)) * parseInt(coption));
+        }
+        else
+            if (ctype == 1) {
+                var sum = Math.ceil(@(((List<MvcApplication3.Models.Price>)(ViewBag.Prices)).Find(x => (int)x.Position == 0 && (int)x.Goal == 1)) * parseInt(coption) / 1000);
+            }
+            else
+                if (ctype == 2) {
+                    var sum = Math.ceil(@(((List<MvcApplication3.Models.Price>)(ViewBag.Prices)).Find(x => (int)x.Position == 0 && (int)x.Goal == 2)) * Math.floor(parseInt(coption) / 7));
+                }
+
+    } else
+        if (cplace == 1) {
+            if (ctype == 0) {
+                var sum = Math.ceil(@(((List<MvcApplication3.Models.Price>)(ViewBag.Prices)).Find(x => (int)x.Position == 1 && (int)x.Goal == 0)) * parseInt(coption));
+            }
+            else
+                if (ctype == 1) {
+                    var sum = Math.ceil(@(((List<MvcApplication3.Models.Price>)(ViewBag.Prices)).Find(x => (int)x.Position == 1 && (int)x.Goal == 1)) * parseInt(coption) / 1000);
+                }
+                else
+                    if (ctype == 2) {
+                        var sum = Math.ceil(@(((List<MvcApplication3.Models.Price>)(ViewBag.Prices)).Find(x => (int)x.Position == 1 && (int)x.Goal == 2)) * Math.floor(parseInt(coption) / 7));
+                    }
+        } else
+            if (cplace == 2) {
+                if (ctype == 0) {
+                    var sum = Math.ceil(@(((List<MvcApplication3.Models.Price>)(ViewBag.Prices)).Find(x => (int)x.Position == 2 && (int)x.Goal == 0)) * parseInt(coption));
+                }
+                else
+                    if (ctype == 1) {
+                        var sum = Math.ceil(@(((List<MvcApplication3.Models.Price>)(ViewBag.Prices)).Find(x => (int)x.Position == 2 && (int)x.Goal == 1)) * parseInt(coption) / 1000);
+                    }
+                    else
+                        if (ctype == 2) {
+                            var sum = Math.ceil(@(((List<MvcApplication3.Models.Price>)(ViewBag.Prices)).Find(x => (int)x.Position == 2 && (int)x.Goal == 2)) * Math.floor(parseInt(coption) / 7));
+                        }
+            }
+    return sum + " рублей";
+}
+</script>
+
+	<legend>Заказ услуг на TopCraft.RU</legend>	
+         <ul class="nav nav-tabs" style="margin-bottom: 4px;">
+            <li class="active"><a href="#balans" data-toggle="tab"><i class="icon-thumbs-up"></i> Пополнение баланса</a></li>
+            <li><a href="#active" data-toggle="tab"><i class="icon-ok"></i> История услуг</a></li>
+            <li><a href="#piramid" data-toggle="tab"><i class="icon-align-center"></i> Пирамида</a></li>
+            <li><a href="#reclame" data-toggle="tab"><i class="icon-picture"></i> Покупка рекламы</a></li>
+            <li><a href="#vip" data-toggle="tab"><i class="icon-briefcase"></i> V.I.P. статус</a></li>
+          </ul>
+          <div class="tab-content" style="overflow: visible;">
+            <div id="balans" class="tab-pane active">
+				<form name="payment" action="https://www.interkassa.com/lib/payment.php" method="post" enctype="application/x-www-form-urlencoded" accept-charset="cp1251" style="text-align: center; padding-top:10px;">
+					<input type="hidden" name="ik_shop_id" value="@MvcApplication3.Global.Interkassa.ShopId">
+					<label for="payment">Введите необходимое количество денег:</label>
+					<div class="input-append">
+					<input type="number" name="ik_payment_amount"  style="text-align: right; width: 60px;" value="1" id="payment" min="1" max="10000" step="1"  class="styler"><span class="add-on"> .00 руб.</span>
+					</div>
+					<input type="hidden" name="ik_payment_id" value="1"  class="styler">
+					<input type="hidden" name="ik_payment_desc" value="Пополнение счета на TopCraft.RU"  class="styler">
+		
+					<br />
+					<input type="submit" name="process" class="btn btn-info" value="Продолжить пополнение"  class="styler"><br /><br />
+				</form>
+				<div class="alert alert-info">
+					<strong>Внимание: </strong>Если Вам не поступят деньги на счёт, просим Вас обратиться в Техническую Поддержку. (<a href="http://topcraft.ru/index.php?mode=tickets">ссылка</a>)
+				</div>
+
+            </div>
+         
+            <div id="active" class="tab-pane">
+				@if(ViewBag.Ads.Count == 0)
+                {
+				    <div id="ccc" class="alert alert-error">
+					    <strong>Ошибка!</strong> У Вас нет активных услуг, может хотите заказать?
+				    </div>
+                }
+				else
+                {
+				    foreach(MvcApplication3.Models.Ad ad in ViewBag.Ads)
+                    {
+				    <div class="row rec"> 
+					    <div class="span3">
+						    <a href="@ad.Url">
+						    <img src="@ad.Banner" alt="@ad.Alt" /> 
+						    </a>
+					    </div>
+					    <div class="span6">
+						    <table class="table table-hover main-table">
+							    <tr>
+								    <th style="width:150px; border-top:0;"><i class="icon-ok-sign"></i> Статус рекламы</th>
+								    <td style="border-top:0;">
+                                        @if(ad.IsActive)
+                                        {
+                                            <span class="label label-success">Активна</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-important">Иссякла</span>
+                                        }		    
+								    </td>
+							    </tr>
+							    <tr>
+								    <th style="width:150px; border-top:0;"><i class="icon-globe"></i> URL адрес</th>
+								    <td style="border-top:0;">
+									    <a href="@ad.Url">@ad.Url</a>
+								    </td>
+							    </tr>
+							    <tr>
+								    <th style="width:150px"><i class="icon-bold"></i> ALT текст</th>
+								    <td>
+									    @ad.Alt
+								    </td>
+							    </tr>
+							    <tr>
+								    <th style="width:150px"><i class="icon-edit"></i> Просмотров</th>
+								    <td>
+									    @ad.Views
+								    </td>
+							    </tr>
+							    <tr>
+								    <th style="width:150px"><i class="icon-tasks"></i> Кликов</th>
+								    <td>
+									    @ad.Clicks
+								    </td>
+							    </tr>
+							    <tr>
+								    <th style="width:150px"><i class="icon-tasks"></i> Условия окончания</th>
+								    <td>
+                                        @switch (ad.Goal)
+                                        {
+                                            case MvcApplication3.Models.Goals.Clicks: @("Клики: "+ad.EndClicks) break;
+                                            case MvcApplication3.Models.Goals.Time: @("Дата: "+ad.EndTime) break;
+                                            case MvcApplication3.Models.Goals.View: @("Просмотры: "+ad.EndViews) break;
+                                        }
+								    </td>
+							    </tr>
+						    </table>
+					    </div>
+				    </div>
+                    }			
+                }   
+				
+            </div><br />
+            <div id="piramid" class="tab-pane">
+				
+				<form class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label input-xlarge" for="proj">Выберите проект</label>
+							<div class="controls">
+								@Html.DropDownList("mmm_proj", 
+                                    new SelectList((List<MvcApplication3.Models.Project>)ViewBag.Projects, 
+                                    "Id", 
+                                    "Name"))
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="cost">Цена за вставку</label>
+							<div class="controls">
+								<input id="cost_mmm" type="text" name="cost" size="30" placeholder="{=={$cost}==} рублей" class="input-xlarge" readonly>
+								<span class="help-block">С каждым новым добавлением, цена становится на 1 рубль больше</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="bonus">Бонусные клики</label>
+							<div class="controls">
+								<input id="VipBonuses" type="text" name="bonus" size="30" placeholder="{=={$bonus_clicks}==} кликов" class="input-xlarge" readonly>
+								<span class="help-block">Если у Вас имеются бонусные клики, то деньги со счёта сниматься НЕ будут.</span>
+							</div>
+						</div>
+				</form>
+				<div class="form-actions">
+						<a href="javascript:mmm()" class="btn btn-primary">Добавить проект</a>
+						<a href="/index.php" class="btn">Отменить</a>
+				</div>
+				<legend>Принцип работы "Пирамиды"</legend>
+				<div style="padding-left: 20px; padding-right: 20px;">
+					<dl>
+					  <dt>Что добавляется?</dt>
+					  <dd>При добавлении в пирамиду, система автоматически узнаёт название и сайт проекта. При нажатии на название, вас автоматически перекинет на сайт проекта.</dd>
+					</dl>
+					<dl>
+					  <dt>Принцип 5 мест</dt>
+					  <dd>Вся пирамида состоит из 5 блоков (проектов), как только добавляется новый проект, он становится на первую позицию, а все остальные сдвигаются вниз. Тот проект, который занимал 5-ую позицию - вылетает из пирамиды.</dd>
+					</dl>
+					<dl>
+					  <dt>Нарастающая стоимость</dt>
+					  <dd>Начальная цена добавления проекта - 8 рублей, с каждым новым проектом цена увеличивается на 1 рубль. Если в течении 3-ёх суток новых добавлений не поступило, цена снова сбрасывается до 8 рублей, а первая 5-ка заполняется случайными проектами.</dd>
+					</dl>
+				</div>
+			</div>			
+            <div id="reclame" class="tab-pane">
+				<form id="form" class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label" for="name">URL баннера</label>
+							<div class="controls">
+								<input id="image" type="text" name="name" size="30" placeholder="http://rghost.ru/44786287/image.png" class="input-xlarge">
+								<span class="help-block">Прямая ссылка на баннер, должна заканчиваться на .jpg / .png / .gif</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="ip">Ссылка на проект</label>
+							<div class="controls">
+								<input id="url" type="text" name="ip" size="30" placeholder="http://topcraft.ru/" class="input-xlarge">
+								<span class="help-block">При нажатии на баннер, Вас будет отправлять по этой ссылке</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="ip">ALT текст</label>
+							<div class="controls">
+								<input id="help" type="text" name="ip" size="30" placeholder="ТопКрафт - лучший сервер майнкрафт! Заходи!" class="input-xlarge">
+								<span class="help-block">Текст, показываемый при наведении на баннер</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="version" class="input-xlarge">Вид рекламы</label>
+							<div class="controls">
+								<select id="place"  name="version" class="input-xlarge">
+									<option>Блок</option>
+									<option>Шапка</option>
+									<option>"Плавающий" баннер</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="version" class="input-xlarge">Тип рекламы</label>
+							<div class="controls">
+								<select id="type"  name="version" class="input-xlarge">
+									<option>Клики</option>
+									<option>Просмотры</option>
+									<option>Сутки</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="ip">Введите количество</label>
+							<div class="controls">
+								<input id="option" type="text" name="ip" size="30" value="0" class="input-xlarge">
+								<span class="help-block">Укажите количество суток/просмотров/кликов</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="ip">Стоимость рекламы</label>
+							<div class="controls">
+								<input id="cost" type="text" name="ip" size="30" placeholder="0 рублей" class="input-xlarge" readonly>
+								<span class="help-block">Высчитывается по вашим запросам</span>
+							</div>
+						</div>
+				</form>
+					<center>
+					
+					</center>
+					<div class="form-actions">
+						<a href="javascript:order()" class="btn btn-primary">Заказать рекламу</a>
+						<a href="/index.php" class="btn">Отменить</a>
+					</div>
+            </div>
+            <div id="vip" class="tab-pane">
+				<form class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label" for="time" class="input-xlarge">Срок покупки</label>
+							<div class="controls">
+								<select id="time"  name="time-buy" class="input-xlarge">
+									<option>1 месяц (0% скидки)</option>
+									<option>2 месяца (10% скидки)</option>
+									<option>3 месяца (20% скидки)</option>
+									<option>6 месяцев (35% скидки)</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label input-xlarge" for="proj">Выберите проект</label>
+							<div class="controls">
+								@Html.DropDownList("proj",
+                                    new SelectList((List<MvcApplication3.Models.Project>)ViewBag.Projects,
+                                    "Id",
+                                    "Name"), new { ID = "project"})
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="cost">Стоимость услуги</label>
+							<div class="controls">
+								<input id="cost_vip" type="text" name="cost" size="30" placeholder="1500 рублей" class="input-xlarge" readonly>
+								<span class="help-block">Высчитывается по вашим запросам</span>
+							</div>
+						</div>
+				</form>
+				<div class="form-actions">
+						<a href="javascript:vip()" class="btn btn-primary">Купить VIP</a>
+						<a href="/index.php" class="btn">Отменить</a>
+				</div>
+				<legend>Преимущества V.I.P. статуса</legend>
+				<div style="padding-left: 20px; padding-right: 20px;">
+					<dl>
+					  <dt>Выделение на главной</dt>
+					  <dd>Благодаря этому, Ваш проект будет отличаться от остальных, т.к. на главной мало информации, то выделение очень сильно повлияет на интерес пользователей к Вашему проекту.</dd>
+					</dl>
+					<dl>
+					  <dt>Выделение на странице "Поиска"</dt>
+					  <dd>Когда человек ищет какой-то определённый проект (через Поиск), чаще всего ему показывают большую таблицу с проектами, и ему требуется выбрать какой-то один, благодаря V.I.P. статусу, Ваш проект будет выделяться среди остальных, что заметно увеличит шанс на выбор именно Вас.</dd>
+					</dl>
+					<dl>
+					  <dt>Персонализация подробной страницы</dt>
+					  <dd>Тут описание и плюсы</dd>
+					</dl>
+					<dl>
+					  <dt>Возможность установить пароль на Лог Голосов</dt>
+					  <dd>Тут описание и плюсы</dd>
+					</dl>
+					<dl>
+					  <dt>Установка бесплатной рекламы на 100.000 просмотров </dt>
+					  <dd>Тут описание и плюсы</dd>
+					</dl>
+					<dl>
+					  <dt>5 бесплатных кликов в "Пирамиде"</dt>
+					  <dd>Тут описание и плюсы</dd>
+					</dl>
+					<dl>
+					  <dt>Улучшенная индексация страницы с Вашим проектом</dt>
+					  <dd>Для каждого V.I.P. проекта наша Администрация лично оптимизирует страницу с подробной информацией на отображение в гугле и яндексе на более высоких позициях, что заметно поможет повысить онлайн.</dd>
+					</dl>
+				</div>
+            </div>
+		</div>	
